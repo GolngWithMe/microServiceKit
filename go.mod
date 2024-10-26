@@ -1,4 +1,4 @@
-module github.com/nogolng/microServiceKit
+module github.com/nogolang/microServiceKit
 
 go 1.23.0
 

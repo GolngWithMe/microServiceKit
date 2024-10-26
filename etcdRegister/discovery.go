@@ -3,7 +3,7 @@ package etcdRegister
 import (
 	"context"
 	"encoding/json"
-	"github.com/nogolng/microServiceKit/etcdRegister/loadBalance"
+	"github.com/nogolang/microServiceKit/etcdRegister/loadBalance"
 	"github.com/pkg/errors"
 	clientv3 "go.etcd.io/etcd/client/v3"
 	"go.uber.org/zap"
