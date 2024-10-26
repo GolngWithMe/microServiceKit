@@ -1,4 +1,4 @@
-module github.com/GolngWithMe/microServiceKit
+module github.com/nogolng/microServiceKit
 
 go 1.23.0
 
