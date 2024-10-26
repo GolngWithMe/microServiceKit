@@ -1,5 +1,4 @@
-module github.com/microServiceKit/etcdRegister
-
+module github.com/Golong-me/microServiceKit/etcdRegister
 go 1.23.0
 
 require (
