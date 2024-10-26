@@ -1,4 +1,4 @@
-module microServiceKit
+module etcdRegister
 
 go 1.23.0
 
