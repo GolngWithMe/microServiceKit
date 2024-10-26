@@ -1,4 +1,4 @@
-module github/microServiceKit/etcdRegister
+module github.com/microServiceKit/etcdRegister
 
 go 1.23.0
 
