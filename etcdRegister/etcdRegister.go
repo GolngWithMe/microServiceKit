@@ -17,6 +17,9 @@ type EtcdRegister struct {
 	client *clientv3.Client
 	logger *zap.Logger
 
+	//当前注册到etcd的完整key
+	AllKey string
+
 	//下面的字段是内部需要的
 	lease     clientv3.Lease
 	keepAlive <-chan *clientv3.LeaseKeepAliveResponse
@@ -99,8 +102,8 @@ func (receiver *EtcdRegister) isIpPortExist(info *ServerInfo) (bool, error) {
 	return isExist, nil
 }
 
-func (receiver *EtcdRegister) DeleteKey(key string) error {
-	_, err := receiver.client.Delete(context.Background(), key)
+func (receiver *EtcdRegister) DeleteKey() error {
+	_, err := receiver.client.Delete(context.Background(), receiver.AllKey)
 	if err != nil {
 		return err
 	}
@@ -130,8 +133,9 @@ func (receiver *EtcdRegister) RegisterServer(ctx context.Context, info *ServerIn
 	//如果注册中心里没有我们的地址,则注册进去
 	//每次存储的时候,然后生产一个唯一的UUID,然后把值存进去
 	allKey := MicroServicePrefix + info.ServerName + "/" + info.Id
+	receiver.AllKey = allKey
 	marshalStr, _ := json.Marshal(info)
-	_, err = receiver.client.Put(ctx, allKey, string(marshalStr), clientv3.WithLease(receiver.leaseId))
+	_, err = receiver.client.Put(ctx, receiver.AllKey, string(marshalStr), clientv3.WithLease(receiver.leaseId))
 	if err != nil {
 		receiver.logger.Error("注册服务失败", zap.Error(err))
 		return err
